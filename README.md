@@ -23,7 +23,7 @@ const bundle = require('@syncpoint/compact-cache-bundle')
 
 /* you don't have to use it the asynchronous way */
 const fs = require('fs)
-const { promisify } = require("util")
+const { promisify } = require('util')
 const fsOpen = promisify(fs.open)
 const fsClose = promisify(fs.close)
 
