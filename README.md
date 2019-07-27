@@ -57,7 +57,7 @@ const fsClose = promisify(fs.close)
 ```
 
 ## Module
-@syncpoint/compact-cache-bundle currently provides three functions to access the bundle data. All functions are asynchronous (because they need to access data in the filesystem).
+@syncpoint/compact-cache-bundle currently provides three functions to access the bundle data. All functions are asynchronous (return a promise) because they need to access data in the filesystem.
 
 ### Header
 ```bundle.header(fileDescriptor)``` returns an object that contains all header data as [specified](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#bundle-header) in ESRI's document.
