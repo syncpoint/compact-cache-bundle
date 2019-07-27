@@ -8,14 +8,16 @@
   },
   "keywords": [
     "ESRI",
-    "compact",
-    "cache",
-    "v2",
+    "compact cache v2",
     "bundle"
   ],
   "author": "Syncpoint GmbH (https://www.syncpoint.io)",
   "license": "MIT",
   "engines": {
     "node": ">= 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/syncpoint/compact-cache-bundle.git"
   }
 }
