@@ -94,7 +94,7 @@ The array contains only records that have a ```TileSize``` greater then zero and
 None, just plain nodejs and Javascript.
 
 ## nodejs version
-Please use the current (nodejs LTS)[https://nodejs.org/en/] version.
+Please use the current [nodejs LTS](https://nodejs.org/en/) version.
 
 ## License
 
