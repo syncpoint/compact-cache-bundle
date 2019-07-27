@@ -1,6 +1,6 @@
 # @syncpoint/compact-cache-bundle
 
-ESRI's compact cache V2 bundle files contain pre-rendered raster or vector tiles. This node module provides read-only access to a bundle file in order to read the header, the tile index and the tiles.
+ESRI's compact cache V2 bundle files contain pre-rendered raster or vector tiles. This nodejs module provides read-only access to a bundle file in order to read the header, the tile index and the tiles.
 
 ESRI provides a [technical description of the compact cache bundle file V2 structure](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md) in their github repository. In contrast to the statement in the description the tiles stored in the bundle are not limited to raster tiles. 
 
@@ -69,6 +69,12 @@ The array contains only records that have a ```TileSize``` greater then zero.
 
 ### Tile
 ```bundle.tile(fileDescriptor, tileIndexRecord)```returns a ```Buffer``` that contains the tile data. The ```tileIndexRecord``` must be obtained by the function ```tileIndex```. 
+
+## Dependencies
+None, just plain nodejs and Javascript.
+
+## nodejs version
+Please use the current (nodejs LTS)[https://nodejs.org/en/] version.
 
 ## License
 
