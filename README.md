@@ -4,7 +4,7 @@ ESRI's compact cache V2 bundle files contain pre-rendered raster or vector tiles
 
 ESRI provides a [technical description of the compact cache bundle file V2 structure](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md) in their github repository. In contrast to the statement in the description the tiles stored in the bundle are not limited to raster tiles. 
 
-ESRI's Vector Tile Package (VTPK) contain bundle files as well. The tiles within the bundle files comply with [Mapbox's Vector Tile Specification v2.0](https://docs.mapbox.com/vector-tiles/specification/).
+ESRI's Vector Tile Package (VTPK) contain bundle files as well. The tiles within the bundle files comply with [Mapbox's Vector Tile Specification v2.0](https://docs.mapbox.com/vector-tiles/specification).
 
 ## Installation
 ```shell
@@ -55,6 +55,18 @@ const fsClose = promisify(fs.close)
     })()
 
 ```
+
+## Module
+@syncpoint/compact-cache-bundle currently provides three functions to access the bundle data. All functions are asynchronous (because they need to access data in the filesystem).
+
+### Header
+```bundle.header(fileDescriptor)``` returns an object that contains all header data as [specified](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#bundle-header) in ESRI's document.
+
+### Tile Index Records
+```bundle.tileIndex(fileDescriptor)``` returns an array of [Tile Index Record](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#tile-index-record)s.
+
+The array contains only records that have a ```TileSize``` greater then zero.
+
 
 ## License
 
