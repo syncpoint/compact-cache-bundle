@@ -1,0 +1,21 @@
+{
+  "name": "@syncpoint/compact-cache-bundle",
+  "version": "0.1.0",
+  "description": "provides access to ESRI's compact cache bundle files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ESRI",
+    "compact",
+    "cache",
+    "v2",
+    "bundle"
+  ],
+  "author": "Syncpoint GmbH (https://www.syncpoint.io)",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  }
+}
