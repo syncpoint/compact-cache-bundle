@@ -67,6 +67,8 @@ const fsClose = promisify(fs.close)
 
 The array contains only records that have a ```TileSize``` greater then zero.
 
+### Tile
+```bundle.tile(fileDescriptor, tileIndexRecord)```returns a ```Buffer``` that contains the tile data. The ```tileIndexRecord``` must be obtained by the function ```tileIndex```. 
 
 ## License
 
