@@ -81,7 +81,7 @@ const fsClose = promisify(fs.close)
 ### Tile Index Records
 ```bundle.tileIndex(fileDescriptor)``` returns an array of [Tile Index Record](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#tile-index-record)s.
 
-The array contains only records that have a ```TileSize``` greater then zero and are augmented with the tile row and column information:
+The array contains only records that have a ```TileSize``` greater than zero and are augmented with the tile row and column information:
 
 ```javascript
     [ { row: 0, column: 1, TileOffset: 131140, TileSize: 2218 } ]
