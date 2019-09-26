@@ -14,24 +14,38 @@ npm install @syncpoint/compact-cache-bundle --save
 ```
 
 ## Usage
+
+Please download any of the bundle files that are part of the [ESRI sample compact cache](https://github.com/Esri/raster-tiles-compactcache/tree/master/sample_cache/_alllayers).
+
+The example below will extract the tiles and write them to the file system. The JPEG file format is hard-coded and should be derived from the file ```conf.xml```:
+
+```xml
+    <TileImageInfo xsi:type="typens:TileImageInfo">
+        <CacheTileFormat>JPEG</CacheTileFormat>
+        <CompressionQuality>75</CompressionQuality>
+        <Antialiasing>false</Antialiasing>
+    </TileImageInfo>
+```
+
 ```javascript
 'use strict'
 
-const file = 'path/to/R0000C0000.bundle'
+const bundle = require('../compact-cache-bundle')
 
-const bundle = require('@syncpoint/compact-cache-bundle')
+const file = 'PATH_TO/ESRI_Compact_Cache/R0000C0000.bundle'
 
 /* you don't have to use it the asynchronous way */
 const fs = require('fs')
 const { promisify } = require('util')
 const fsOpen = promisify(fs.open)
 const fsClose = promisify(fs.close)
+const fsWrite = promisify(fs.write)
 
     ; (async () => {
         let fd
         try {
             fd = await fsOpen(file, 'r')
-            
+
             const bundleHeader = await bundle.header(fd)
             console.dir(bundleHeader)
 
@@ -40,10 +54,24 @@ const fsClose = promisify(fs.close)
 
             /* please read ESRI's technical specification for details */
             for (let r = 0; r < records.length; r++) {
+
                 let tile = await bundle.tiles(fd, records[r])
 
-                /* tile is a nodejs Buffer */
-                console.dir(tile)
+                /* please check if the tiles are in JPEG format upfront */
+                const fileName = `${records[r].row}-${records[r].column}.jpeg`
+
+                let outputFd
+                try {
+                    outputFd = await fsOpen(fileName, 'w')
+                    fsWrite(outputFd, tile)
+                    console.log(`created file ${fileName}`)
+                }
+                catch (error) {
+                    console.dir(error)
+                }
+                finally {
+                    await fsClose(outputFd)
+                }
             }
         }
         catch (error) {
@@ -56,7 +84,7 @@ const fsClose = promisify(fs.close)
 
 ```
 
-## Module
+## API
 @syncpoint/compact-cache-bundle currently provides three functions to access the bundle data. All functions are __asynchronous (return a promise)__ because they need to access data in the filesystem.
 
 ### Header
