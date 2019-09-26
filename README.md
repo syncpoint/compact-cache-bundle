@@ -89,7 +89,7 @@ const fsWrite = promisify(fs.write)
 ### Header
 ```bundle.header(fileDescriptor)``` returns an object that contains all header data as [specified](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#bundle-header) in ESRI's document.
 
-```json
+```javascript
 { 
   version: 3,
   recordCount: 16384,
@@ -110,9 +110,9 @@ const fsWrite = promisify(fs.write)
 ### Tile Index Records
 ```bundle.tileIndex(fileDescriptor)``` returns an array of [Tile Index Record](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#tile-index-record)s.
 
-The array contains only records that have a ```TileSize``` greater than zero and are augmented with the tile row and column information:
+The array contains only records that have a ```tileSize``` greater than zero and are augmented with the tile row and column information:
 
-```json
+```javascript
 [ 
   { row: 0, column: 0, tileOffset: 267680, tileSize: 29182 },
   { row: 0, column: 1, tileOffset: 296866, tileSize: 17156 },
