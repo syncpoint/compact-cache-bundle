@@ -13,8 +13,8 @@ The tile offset is stored in bits 0 to 39, while the tile size is located in bit
 */
 const tileIndexRecord = (buffer) => {
     const record = {
-        TileOffset: buffer.readUIntLE(0, 5),
-        TileSize: buffer.readUIntLE(5, 3)
+        tileOffset: buffer.readUIntLE(0, 5),
+        tileSize: buffer.readUIntLE(5, 3)
     }
     return record
 }
@@ -27,7 +27,7 @@ async function records(fd) {
         for (let column = 0; column < TILE_INDEX_ARRAY_SIZE; column++) {
             await asyncFs.read(fd, buffer, 0, TILE_INDEX_RECORD_SIZE, tileIndexOffset(row, column))
             const record = tileIndexRecord(buffer)
-            if (record.TileSize !== 0) {
+            if (record.tileSize !== 0) {
                 allRecords.push({ ...{ row: row, column: column }, ...record })
             }
         }

@@ -32,7 +32,7 @@ The example below will extract the tiles and write them to the file system. The 
 
 const bundle = require('../compact-cache-bundle')
 
-const file = 'PATH_TO/ESRI_Compact_Cache/R0000C0000.bundle'
+const file = 'PATH_TO_ESRI_Compact_Cache/L02/R0000C0000.bundle'
 
 /* you don't have to use it the asynchronous way */
 const fs = require('fs')
@@ -81,7 +81,6 @@ const fsWrite = promisify(fs.write)
             await fsClose(fd)
         }
     })()
-
 ```
 
 ## API
@@ -90,20 +89,22 @@ const fsWrite = promisify(fs.write)
 ### Header
 ```bundle.header(fileDescriptor)``` returns an object that contains all header data as [specified](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#bundle-header) in ESRI's document.
 
-```javascript
-{ Version: 3,
-  RecordCount: 0,
-  MaxTileSize: 131092,
-  OffsetByteCount: 5,
-  SlackSpace: 0,
-  FileSize: 133358,
-  UserHeaderOffset: 40,
-  UserHeaderSize: 131092,
-  Legacy1: 3,
-  Legacy2: 0,
-  Legacy3: 16384,
-  Legacy4: 5,
-  IndexSize: 131072 }
+```json
+{ 
+  version: 3,
+  recordCount: 16384,
+  maxTileSize: 43588,
+  offsetByteCount: 5,
+  slackSpace: 0,
+  fileSize: 588369,
+  userHeaderOffset: 40,
+  userHeaderSize: 131092,
+  legacy1: 3,
+  legacy2: 16,
+  legacy3: 16384,
+  legacy4: 5,
+  indexSize: 131072
+}
 ```
 
 ### Tile Index Records
@@ -111,8 +112,25 @@ const fsWrite = promisify(fs.write)
 
 The array contains only records that have a ```TileSize``` greater than zero and are augmented with the tile row and column information:
 
-```javascript
-    [ { row: 0, column: 1, TileOffset: 131140, TileSize: 2218 } ]
+```json
+[ 
+  { row: 0, column: 0, tileOffset: 267680, tileSize: 29182 },
+  { row: 0, column: 1, tileOffset: 296866, tileSize: 17156 },
+  { row: 0, column: 2, tileOffset: 314026, tileSize: 14641 },
+  { row: 0, column: 3, tileOffset: 328671, tileSize: 22656 },
+  { row: 1, column: 0, tileOffset: 351331, tileSize: 33511 },
+  { row: 1, column: 1, tileOffset: 384846, tileSize: 20788 },
+  { row: 1, column: 2, tileOffset: 405638, tileSize: 24476 },
+  { row: 1, column: 3, tileOffset: 430118, tileSize: 43309 },
+  { row: 2, column: 0, tileOffset: 473431, tileSize: 18128 },
+  { row: 2, column: 1, tileOffset: 491563, tileSize: 14995 },
+  { row: 2, column: 2, tileOffset: 506562, tileSize: 14602 },
+  { row: 2, column: 3, tileOffset: 521168, tileSize: 31591 },
+  { row: 3, column: 0, tileOffset: 552763, tileSize: 12698 },
+  { row: 3, column: 1, tileOffset: 565465, tileSize: 9139 },
+  { row: 3, column: 2, tileOffset: 574608, tileSize: 5293 },
+  { row: 3, column: 3, tileOffset: 579905, tileSize: 8464 } 
+]
 ```
 
 ### Tile
