@@ -30,7 +30,7 @@ The example below will extract the tiles and write them to the file system. The 
 ```javascript
 'use strict'
 
-const bundle = require('../compact-cache-bundle')
+const bundle = require('@syncpoint/compact-cache-bundle')
 
 const file = 'PATH_TO_ESRI_Compact_Cache/L02/R0000C0000.bundle'
 
