@@ -63,7 +63,7 @@ const fsWrite = promisify(fs.write)
                 let outputFd
                 try {
                     outputFd = await fsOpen(fileName, 'w')
-                    fsWrite(outputFd, tile)
+                    await fsWrite(outputFd, tile)
                     console.log(`created file ${fileName}`)
                 }
                 catch (error) {
