@@ -1,6 +1,6 @@
 {
   "name": "@syncpoint/compact-cache-bundle",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "provides access to ESRI's compact cache bundle files",
   "main": "index.js",
   "scripts": {
