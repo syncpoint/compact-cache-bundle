@@ -52,13 +52,16 @@ const fsWrite = promisify(fs.write)
             const records = await bundle.tileIndex(fd)
             console.dir(records)
 
+            const bundleOffset = bundle.offset(file)
+
             /* please read ESRI's technical specification for details */
             for (let r = 0; r < records.length; r++) {
-
                 let tile = await bundle.tiles(fd, records[r])
-
-                /* please check if the tiles are in JPEG format upfront */
-                const fileName = `${records[r].row}-${records[r].column}.jpeg`
+                
+                const absRow = bundleOffset.rowOffset + records[r].row
+                const absColumn = bundleOffset.columnOffset + records[r].column
+                /* please check the tile format upfront */
+                const fileName = `${absRow}-${absColumn}.pbf`
 
                 let outputFd
                 try {
@@ -84,7 +87,9 @@ const fsWrite = promisify(fs.write)
 ```
 
 ## API
-@syncpoint/compact-cache-bundle currently provides three functions to access the bundle data. All functions are __asynchronous (return a promise)__ because they need to access data in the filesystem.
+@syncpoint/compact-cache-bundle currently provides three functions to access the tiles stored in the bundle files. All functions are __asynchronous (return a promise)__ because they need to access data in the filesystem.
+
+Only the function ```offset``` is synchronous.
 
 ### Header
 ```bundle.header(fileDescriptor)``` returns an object that contains all header data as [specified](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#bundle-header) in ESRI's document.
@@ -110,7 +115,7 @@ const fsWrite = promisify(fs.write)
 ### Tile Index Records
 ```bundle.tileIndex(fileDescriptor)``` returns an array of [Tile Index Record](https://github.com/Esri/raster-tiles-compactcache/blob/master/CompactCacheV2.md#tile-index-record)s.
 
-The array contains only records that have a ```tileSize``` greater than zero and are augmented with the tile row and column information:
+The array contains only records that have a ```tileSize``` greater than zero and are augmented with the tile row and column information. Row and column are __absolute within the bundle__ only. Each bundle file is part of a coordinate system and the offset of the bundle is encoded in its name (see _Bundle offset_).
 
 ```javascript
 [ 
@@ -135,6 +140,13 @@ The array contains only records that have a ```tileSize``` greater than zero and
 
 ### Tile
 ```bundle.tile(fileDescriptor, tileIndexRecord)```returns a ```Buffer``` that contains the tile data. The ```tileIndexRecord``` must be obtained by the function ```tileIndex```. 
+
+### Bundle offset
+```bundle.offset(bundleFileName)``` calculates the row and column offset that is encoded in the bundle filename (```RrrrrCcccc.bundle```). If the tiles should be exported to the filesystem or to a MBTiles database, the bundle offset must be added to the row and column data of the tiles.
+
+```javascript
+    { rowOffset: 0, columnOffset: 0 }
+```
 
 ## Dependencies
 None, just plain nodejs and Javascript.
