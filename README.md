@@ -57,11 +57,11 @@ const fsWrite = promisify(fs.write)
             /* please read ESRI's technical specification for details */
             for (let r = 0; r < records.length; r++) {
                 let tile = await bundle.tiles(fd, records[r])
-                
+
                 const absRow = bundleOffset.rowOffset + records[r].row
                 const absColumn = bundleOffset.columnOffset + records[r].column
                 /* please check the tile format upfront */
-                const fileName = `${absRow}-${absColumn}.pbf`
+                const fileName = `${absRow}-${absColumn}.jpeg`
 
                 let outputFd
                 try {
